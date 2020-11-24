@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 18:43:46 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/11/20 19:51:10 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/11/23 23:30:54 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int	get_next_line(int fd, char **line)
 {
 	
-	
-	read(fd, 0, 1000);
+	read(fd, line[0], 13);
+	return (1);
 }
