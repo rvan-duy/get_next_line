@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 19:40:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/11/24 12:53:14 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/11/25 12:45:09 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
     # define BUFFER_SIZE 128
 #endif
 # include <unistd.h>
+# include <stddef.h>
 
-int get_next_line(int fd, char **Line);
+int     get_next_line(int fd, char **Line);
 
 #endif

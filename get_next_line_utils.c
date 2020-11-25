@@ -6,7 +6,8 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 19:22:54 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/11/20 19:26:01 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/11/25 12:45:03 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
