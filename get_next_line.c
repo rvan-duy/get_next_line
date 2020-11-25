@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 18:43:46 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/11/25 13:00:22 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/11/25 15:50:57 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,18 @@ static int find_nline(char *line)
 	return (-1);
 }
 
-static char *cut_until_nline(char *line, int len)
+static char *cut_until_nline(char **line)
 {
 	int i;
-	char *str;
+	char *newstr;
+
+	newstr = malloc(sizeof(char) * find_nline(*line) + 1);
 
 	i = 0;
-	printf("%d, %s \n", i, str);
-	str = calloc(len + 1, sizeof(char));
-	printf("%d, %s \n", i, str);
-	while (i < len)
+	while (i < i)
 	{
 		printf("%d ", i);
-		str[i] = line[i];
+		newstr[i] = line[i];
 		i++;
 	}	
 }
@@ -61,13 +60,15 @@ int	get_next_line(int fd, char **line)
 	// Buffer_size has been read
 	// 		when a newline is found
 	//		when the end of the file is foun
-	int newline = find_nline(*line);
-	if (newline != -1)
+	/*if (newline != -1)
 	{
 		printf("Newline found on index: %d\n", newline);
+		printf("[%s]", *line);
 		newstr = cut_until_nline(*line, newline);
-	}
-	printf("[%s]\n", newstr);
+	}*/
+	printf("[%p]\n", line);
+	printf("[%s]\n", line[0]);
+	printf("[%c]\n", line[0][1]);
 
 
 	
