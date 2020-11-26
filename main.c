@@ -13,7 +13,7 @@ int main()
     char *buf;
 
     fd = open("test.txt", O_RDONLY);
-    if (!fd == -1)
+    if (fd == -1)
     {
         printf("Failed to open and read the file.\n");
         exit(1);
@@ -22,8 +22,8 @@ int main()
     int ret;
     ret = get_next_line(fd, &buf);
     //while (ret = get_next_line(fd, &buf) > 0)
-        //printf("[%d] - [%s]\n", ret, buf);
-
+       //printf("[%d] - [%s]\n", ret, buf);
+    printf("ret: %d\n", ret);
 
 
     return 0;

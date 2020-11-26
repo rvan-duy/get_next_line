@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 18:43:46 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/11/25 17:01:11 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/11/26 14:07:05 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ static int find_nline(char *line)
 	i = 0;
 	if (!line)
 		return (0);
-	while (i < BUFFER_SIZE)
+	while (line[i])
 	{
-		if (line[i] == '\n' || line[i] == 0)
+		if (line[i] == '\n')
 			return (i);
 		i++;
 	}
-	return (-1);
+	return (i);
 }
 
 static char *cut_until_nline(char *line)
@@ -47,25 +47,37 @@ static char *cut_until_nline(char *line)
 		newstr[i] = line[i];
 		i++;
 	}
+	newstr[i] = '\0';
 	return (newstr);
 }
 
 int	get_next_line(int fd, char **line)
 {
-	*line = calloc(BUFFER_SIZE, sizeof(char));
-	int ret = read(fd, *line, BUFFER_SIZE);
+	char buf[BUFFER_SIZE + 1];
+	int newline;
+	static int i = 0;
+
+	int ret = read(fd, buf, BUFFER_SIZE);
+	if (ret == -1)
+		return (-1);
+	buf[ret] = '\0';
+	newline = find_nline(buf);
+	printf("Newline at: %d\n", newline);
+
+	
+	printf("[%d] - [%s]\n", ret, buf);
 	char *newstr;
 	// Buffer_size has been read
 	// 		when a newline is found
 	//		when the end of the file is foun
 	
 	
-	if (ret != -1)
+	/*if (ret != -1)
 	{
 		printf("[%s]\n", *line);
 		newstr = cut_until_nline(*line);
 		printf("[%s]\n", newstr);
-	}
+	}*/
 	
 	
 	
