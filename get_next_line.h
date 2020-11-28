@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 19:40:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/11/25 12:45:09 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/11/28 18:20:39 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #endif
 # include <unistd.h>
 # include <stddef.h>
+# include <stdlib.h>
 
 int     get_next_line(int fd, char **Line);
 
