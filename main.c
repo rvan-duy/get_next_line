@@ -23,7 +23,6 @@ int main()
     ret = get_next_line(fd, &buf);
     //while (ret = get_next_line(fd, &buf) > 0)
        //printf("[%d] - [%s]\n", ret, buf);
-    printf("ret: %d\n", ret);
 
 
     return 0;

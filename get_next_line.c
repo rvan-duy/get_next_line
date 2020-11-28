@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 18:43:46 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/11/26 14:07:05 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/11/28 16:27:03 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ static int find_nline(char *line)
 	return (i);
 }
 
-static char *cut_until_nline(char *line)
+static char *before_nline(char *line, int newline)
 {
 	int i;
 	char *newstr;
 
-	newstr = malloc(sizeof(char) * find_nline(line) + 1);
+	newstr = malloc(sizeof(char) * newline + 1);
 	i = 0;
 	while (line[i] != '\0' && line[i] != '\n')
 	{
@@ -51,22 +51,34 @@ static char *cut_until_nline(char *line)
 	return (newstr);
 }
 
+// Needs to grab what comes after the nline and save it
+// Can also be EOF, then return ?
+static char *after_nline(char *line, int newline)
+{
+	//printf("line: %s\n", line + newline + 1);
+}
+
 int	get_next_line(int fd, char **line)
 {
 	char buf[BUFFER_SIZE + 1];
 	int newline;
-	static int i = 0;
+	char *str;
+	char *savedstr;
 
 	int ret = read(fd, buf, BUFFER_SIZE);
 	if (ret == -1)
 		return (-1);
 	buf[ret] = '\0';
 	newline = find_nline(buf);
-	printf("Newline at: %d\n", newline);
+	printf("Newline or EOF: %d || ", newline);
+	printf("[%d] - [%s] || ", ret, buf);
+	str = before_nline(buf, newline);
+	printf("cut string: [%s]\n", str);
+	printf("-- [%s, %d] --\n", buf, newline);
+	savedstr = buf + newline + 1;
+	printf("after newline: [%s]\n", savedstr);
 
 	
-	printf("[%d] - [%s]\n", ret, buf);
-	char *newstr;
 	// Buffer_size has been read
 	// 		when a newline is found
 	//		when the end of the file is foun
