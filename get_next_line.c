@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 18:43:46 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/11/28 18:23:52 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/11/29 13:18:33 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-static char	*gnl_strdup(const char *s1)
-{
-	char	*str;
-	int		i;
-
-	i = 0;
-	str = ft_calloc(ft_strlen(s1) + 1, sizeof(char));
-	if (!str)
-		return (NULL);
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	return (str);
-}
 
 static int find_nline(char *line)
 {

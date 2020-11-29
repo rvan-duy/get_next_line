@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 19:40:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/11/28 18:20:39 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/11/29 13:20:33 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,11 @@
 # include <stdlib.h>
 
 int     get_next_line(int fd, char **Line);
+size_t  gnl_strlen(const char *s);
+void    *gnl_memset(void *s, int c, size_t n);
+void    gnl_bzero(void *s, size_t n);
+char    *gnl_strdup(const char *s1);
+void    *gnl_calloc(size_t count, size_t size);
+
 
 #endif
