@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 18:43:46 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/01 16:53:11 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/01 17:53:00 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,17 @@ int	get_next_line(int fd, char **line)
 		strlen2 = gnl_strlen(temp);
 		printf("[%s]\n", buf + strlen2);
 		ret = read(fd, buf + strlen2, BUFFER_SIZE - strlen2);
+		if (ret == -1)
+			return (-1);
 		buf[ret + strlen2] = '\0';
-		printf("[%s] - [%d] - [%d]\n", buf, ret, strlen2);
-		return (0);
+		printf("New buf: [%s]\n", buf);
 	}
 	else
 	{
-	ret = read(fd, buf, BUFFER_SIZE);
-	if (ret == -1)
-		return (-1);
-	buf[ret] = '\0';
+		ret = read(fd, buf, BUFFER_SIZE);
+		if (ret == -1)
+			return (-1);
+		buf[ret] = '\0';
 	}
 	
 	// Looking for newline or EOF
@@ -121,9 +122,9 @@ int	get_next_line(int fd, char **line)
 		strlen = gnl_strlen(buf + newline + 1);
 		printf("There is more stuff after newline: [%s]\n", buf + newline + 1);
 		gnl_strmove(buf, buf + newline + 1, strlen);
-		printf("[%s]\n", buf);
 	}
-
+	else
+		gnl_memset(buf, 0, BUFFER_SIZE);
 
 	
 	
