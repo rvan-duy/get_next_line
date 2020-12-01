@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 18:43:46 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/01 16:40:11 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/01 16:53:11 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	get_next_line(int fd, char **line)
 	char *temp;
 	int newline;
 	int strlen;
+	int strlen2;
 	int ret;
 	//char *str;
 	//char *newstr;
@@ -89,11 +90,12 @@ int	get_next_line(int fd, char **line)
 	{
 		printf("Buf already exists: [%s]\n", buf);
 		temp = strdup(buf);
-		ret = read(fd, buf, BUFFER_SIZE - gnl_strlen(buf));
-		buf[ret] = '\0';
-		// strjoin needs to be changed, also why does buf not work?
-		buf = gnl_strjoin(temp, buf);
-		printf("[%s]\n", buf);
+		strlen2 = gnl_strlen(temp);
+		printf("[%s]\n", buf + strlen2);
+		ret = read(fd, buf + strlen2, BUFFER_SIZE - strlen2);
+		buf[ret + strlen2] = '\0';
+		printf("[%s] - [%d] - [%d]\n", buf, ret, strlen2);
+		return (0);
 	}
 	else
 	{
