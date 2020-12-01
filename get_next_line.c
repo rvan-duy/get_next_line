@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 18:43:46 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/01 14:55:20 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/01 16:40:11 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,32 @@ static int	gnl_cut_until_nline(char *buf, int newline, char **line)
 int	get_next_line(int fd, char **line)
 {
 	static char buf[BUFFER_SIZE + 1];
+	char *temp;
 	int newline;
 	int strlen;
+	int ret;
 	//char *str;
 	//char *newstr;
 
-	// Reading file
-	int ret = read(fd, buf, BUFFER_SIZE);
+	// Reading file, but first checking if there is already something in the buf
+	if (buf[0])
+	{
+		printf("Buf already exists: [%s]\n", buf);
+		temp = strdup(buf);
+		ret = read(fd, buf, BUFFER_SIZE - gnl_strlen(buf));
+		buf[ret] = '\0';
+		// strjoin needs to be changed, also why does buf not work?
+		buf = gnl_strjoin(temp, buf);
+		printf("[%s]\n", buf);
+	}
+	else
+	{
+	ret = read(fd, buf, BUFFER_SIZE);
 	if (ret == -1)
 		return (-1);
 	buf[ret] = '\0';
-
+	}
+	
 	// Looking for newline or EOF
 	newline = gnl_find_nline(buf);
 	printf("[gnl_find_nline] returned %d.\n", newline);
