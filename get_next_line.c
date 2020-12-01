@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 18:43:46 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/01 17:53:00 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/01 21:03:24 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static char *gnl_strjoin(char *str1, char *str2)
 
 	strlen1 = gnl_strlen(str1);
 	strlen2 = gnl_strlen(str2);
-	printf("[%s, %s, %d, %d]\n", str1, str2, strlen1, strlen2);
 	newstr = gnl_calloc(strlen1 + strlen2 + 1, sizeof(char));
 	if (!newstr)
 		return (NULL);
@@ -46,11 +45,11 @@ static int gnl_find_nline(char *line)
 		return (0);
 	while (line[i])
 	{
-		if (line[i] == '\n')
+		if (line[i] == '\n' || line[i] == '\0')
 			return (i);
 		i++;
 	}
-	return (i);
+	return (0);
 }
 
 // Cutting line and putting it in line. 1 if succesfull, 0 if fails.
@@ -76,36 +75,30 @@ static int	gnl_cut_until_nline(char *buf, int newline, char **line)
 
 int	get_next_line(int fd, char **line)
 {
-	static char buf[BUFFER_SIZE + 1];
-	char *temp;
-	int newline;
-	int strlen;
-	int strlen2;
-	int ret;
+	static char	buf[BUFFER_SIZE + 1];
+	char		*temp;
+	int			strlen;
+	int			ret;
+	int			newline;
 	//char *str;
 	//char *newstr;
-
-	// Reading file, but first checking if there is already something in the buf
-	if (buf[0])
-	{
-		printf("Buf already exists: [%s]\n", buf);
-		temp = strdup(buf);
-		strlen2 = gnl_strlen(temp);
-		printf("[%s]\n", buf + strlen2);
-		ret = read(fd, buf + strlen2, BUFFER_SIZE - strlen2);
-		if (ret == -1)
-			return (-1);
-		buf[ret + strlen2] = '\0';
-		printf("New buf: [%s]\n", buf);
-	}
-	else
-	{
-		ret = read(fd, buf, BUFFER_SIZE);
-		if (ret == -1)
-			return (-1);
-		buf[ret] = '\0';
-	}
 	
+	// Reading buf until newline or EOF is found. Also checking if there is already something in buf.
+	while (gnl_find_nline(buf) == 0)
+	{
+		if (buf[0] && !temp)
+		{	
+			temp = gnl_strdup(buf);
+			strlen = gnl_strlen(temp);
+		}	
+		else
+			strlen = 0;
+		ret = read(fd, buf + strlen, BUFFER_SIZE - strlen);
+		if (ret == -1)
+			return (-1);
+		buf[ret + strlen] = '\0';
+	}
+
 	// Looking for newline or EOF
 	newline = gnl_find_nline(buf);
 	printf("[gnl_find_nline] returned %d.\n", newline);
