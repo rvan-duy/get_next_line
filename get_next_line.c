@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 18:43:46 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/01 21:03:24 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/01 21:09:13 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int	get_next_line(int fd, char **line)
 		ret = read(fd, buf + strlen, BUFFER_SIZE - strlen);
 		if (ret == -1)
 			return (-1);
+		// Implement strjoin somewhere, what if already read something?
 		buf[ret + strlen] = '\0';
 	}
 
