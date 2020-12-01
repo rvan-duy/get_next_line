@@ -6,11 +6,12 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 19:22:54 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/11/29 13:44:43 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/01 15:09:08 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 size_t	gnl_strlen(const char *s)
 {
@@ -81,4 +82,18 @@ void	*gnl_memcpy(void *dst, const void *src, size_t n)
 		i++;
 	}
 	return (dst);
+}
+
+void	gnl_strmove(char *dst, char *src, int n)
+{
+	int len;
+	
+	len = n;
+	while (len > 0)
+	{
+		dst[len - 1] = src[len - 1];
+		len--;
+	}
+	dst[n] = '\0';
+	return ;
 }

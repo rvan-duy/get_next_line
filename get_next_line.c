@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 18:43:46 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/01 13:41:45 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/01 14:55:20 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ static int	gnl_cut_until_nline(char *buf, int newline, char **line)
 
 int	get_next_line(int fd, char **line)
 {
-	char buf[BUFFER_SIZE + 1];
+	static char buf[BUFFER_SIZE + 1];
 	int newline;
+	int strlen;
 	//char *str;
 	//char *newstr;
 
@@ -99,8 +100,14 @@ int	get_next_line(int fd, char **line)
 
 	// Checking if there is still something after the newline
 	if (buf[newline + 1] != '\0')
-		printf("There is more stuff after newline\n");
-	
+	{
+		strlen = gnl_strlen(buf + newline + 1);
+		printf("There is more stuff after newline: [%s]\n", buf + newline + 1);
+		gnl_strmove(buf, buf + newline + 1, strlen);
+		printf("[%s]\n", buf);
+	}
+
+
 	
 	
 	//savedstr = gnl_strdup(buf + newline + 1);
