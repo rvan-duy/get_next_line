@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 19:22:54 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/01 20:36:17 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/01 22:08:24 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,28 @@ void	gnl_strmove(char *dst, char *src, int n)
 	}
 	dst[n] = '\0';
 	return ;
+}
+
+size_t	gnl_strlcpy(char *dst, const char *src, size_t n)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	if (!dst || !src)
+		return (0);
+	while (src[j] != '\0')
+	{
+		if (i < n - 1 && n > 0)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		j++;
+	}
+	if (!n)
+		return (j);
+	dst[i] = '\0';
+	return (j);
 }

@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 18:43:46 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/01 21:09:13 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/02 00:41:57 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@
 #include <string.h>
 #include <stdlib.h>
 
-static char *gnl_strjoin(char *str1, char *str2)
+// almost?
+static int gnl_strjoin(char *buf, char **line)
 {
-	char *newstr;
-	int strlen1;
-	int strlen2;
+	int len1;
+	int	len2;
 
-	strlen1 = gnl_strlen(str1);
-	strlen2 = gnl_strlen(str2);
-	newstr = gnl_calloc(strlen1 + strlen2 + 1, sizeof(char));
-	if (!newstr)
-		return (NULL);
-	gnl_memcpy(newstr, str1, strlen1);
-	gnl_memcpy(newstr + strlen1, str2, strlen2);
-	return (newstr);
+	len1 = gnl_strlen(buf);
+	len2 = gnl_strlen(line[0]);
+	line[0] = malloc((len1 + len2 + 1) * sizeof(char));
+	if (!line)
+		return (0);
+	gnl_strlcpy(line[0], buf, len1 + len2 + 1);
+	line[0][len1 + len2 + 1] = '\0';
+	return (1);
 }
 
 // Looking for nline or EOF, if found return i.
@@ -98,10 +98,13 @@ int	get_next_line(int fd, char **line)
 			return (-1);
 		// Implement strjoin somewhere, what if already read something?
 		buf[ret + strlen] = '\0';
+		gnl_strjoin(buf, line);
+		printf("[%s]\n", line[0]);
 	}
 
+	ret = 0;
 	// Looking for newline or EOF
-	newline = gnl_find_nline(buf);
+	/*newline = gnl_find_nline(buf);
 	printf("[gnl_find_nline] returned %d.\n", newline);
 	
 	// Cutting line
@@ -118,7 +121,7 @@ int	get_next_line(int fd, char **line)
 		gnl_strmove(buf, buf + newline + 1, strlen);
 	}
 	else
-		gnl_memset(buf, 0, BUFFER_SIZE);
+		gnl_memset(buf, 0, BUFFER_SIZE);*/
 
 	
 	
