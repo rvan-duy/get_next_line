@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/20 18:43:46 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/11/29 15:00:04 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/01 13:41:45 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static char *gnl_strjoin(char *str1, char *str2)
 	return (newstr);
 }
 
+// Looking for nline or EOF, if found return i.
 static int gnl_find_nline(char *line)
 {
 	int i;
@@ -52,19 +53,22 @@ static int gnl_find_nline(char *line)
 	return (i);
 }
 
-static char *gnl_before_nline(char *line, int newline)
+// Cutting line and putting it in line. 1 if succesfull, 0 if fails.
+static int	gnl_cut_until_nline(char *buf, int newline, char **line)
 {
 	int i;
-	char *newstr;
 
-	newstr = gnl_calloc(newline + 1, sizeof(char));
+	line[0] = malloc((newline + 1) * sizeof(char));
+	if (!line)
+		return (0);
 	i = 0;
-	while (line[i] != '\0' && line[i] != '\n')
+	while (buf[i] != '\0' && buf[i] != '\n')
 	{
-		newstr[i] = line[i];
+		line[0][i] = buf[i];
 		i++;
 	}
-	return (newstr);
+	line[0][i] = '\0';
+	return (1);
 }
 
 // Needs to grab what comes after the nline and save it
@@ -74,22 +78,35 @@ int	get_next_line(int fd, char **line)
 {
 	char buf[BUFFER_SIZE + 1];
 	int newline;
-	char *str;
-	char *newstr;
-	static char *savedstr;
+	//char *str;
+	//char *newstr;
 
+	// Reading file
 	int ret = read(fd, buf, BUFFER_SIZE);
 	if (ret == -1)
 		return (-1);
 	buf[ret] = '\0';
+
+	// Looking for newline or EOF
 	newline = gnl_find_nline(buf);
-	printf("Newline or EOF: %d || ", newline);
-	str = gnl_before_nline(buf, newline);
-	printf("cut string: [%s]\n", str);
-	savedstr = gnl_strdup(buf + newline + 1);
-	printf("after newline: [%s]\n", savedstr);
-	newstr = gnl_strjoin(savedstr, buf);
-	printf("newstr: [%s]\n", newstr);
+	printf("[gnl_find_nline] returned %d.\n", newline);
+	
+	// Cutting line
+	if (gnl_cut_until_nline(buf, newline, line) == 1)
+		printf("[gnl_cut_until_nline] returned 1: [%s]\n", line[0]);
+	else
+		printf("[gnl_cut_until_nline] returned 0.\n");
+
+	// Checking if there is still something after the newline
+	if (buf[newline + 1] != '\0')
+		printf("There is more stuff after newline\n");
+	
+	
+	
+	//savedstr = gnl_strdup(buf + newline + 1);
+	//printf("after newline: [%s]\n", savedstr);
+	//newstr = gnl_strjoin(savedstr, buf);
+	//printf("newstr: [%s]\n", newstr);
 	
 	// Buffer_size has been read
 	// 		when a newline is found

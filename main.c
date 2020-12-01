@@ -21,8 +21,9 @@ int main()
 
     int ret;
     ret = get_next_line(fd, &buf);
-    while (ret = get_next_line(fd, &buf) > 0)
-       printf("[%d] - [%s]\n", ret, buf);
+    //while (ret = get_next_line(fd, &buf) > 0)
+       //printf("[%d] - [%s]\n", ret, buf);
+    printf("[%d] - [%s]\n", ret, buf);
     //while (1) {};
 
     return 0;
