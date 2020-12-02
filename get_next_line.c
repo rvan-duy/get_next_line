@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/02 16:15:15 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/02 19:26:28 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@ int get_next_line(int fd, char **line)
             newline = gnl_find_nline(buf);
             // This needs error handeling but i have no idea how
             line[0] = gnl_strjoin(buf, line, newline);
-            printf("line: [%s]\n", line[0]);
+            printf("newline: %d\n", newline);
         }
         if (ret == -1)
             return (-1);
-        if (end == 1)
-            return (0);
+        if (ret == 0)
+            return (ret);
     }
-    // gnl_cut_until_nline(buf, newline, line);
-    printf("buf: [%s]\n", buf);
-    return 0;
+    ///printf("buf: [%s]\n", buf);
+    return ret;
 }
