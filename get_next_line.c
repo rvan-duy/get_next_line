@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/02 15:53:27 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/02 15:55:53 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ int get_next_line(int fd, char **line)
         newline = gnl_find_nline(line);
     }
     gnl_cut_until_nline(buf, newline, line);
-    printf("[%d] - [%s]\n", newline, line[0]);
     return 0;
 }
