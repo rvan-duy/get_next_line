@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:29:32 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/02 15:56:06 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/02 16:07:12 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 int     gnl_strlen(const char *s);
 int     get_next_line(int fd, char **line);
-int     gnl_find_nline(char **line);
+int     gnl_find_nline(char *buf);
 int     gnl_cut_until_nline(char *buf, int newline, char **line);
-char    *gnl_strjoin(char *buf, char **line);
+char    *gnl_strjoin(char *buf, char **line, int newline);
 
 #endif

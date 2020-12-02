@@ -6,11 +6,12 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/02 15:52:24 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/02 16:15:01 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int		gnl_strlen(const char *s)
 {
@@ -24,16 +25,16 @@ int		gnl_strlen(const char *s)
 
 // Returns position of newline or EOF.
 // 0 if no newline of EOF is found.
-int 	gnl_find_nline(char **line)
+int 	gnl_find_nline(char *buf)
 {
 	int i;
 
 	i = 0;
-	if (!line)
+	if (!buf)
 		return (0);
-	while (line[0][i])
+	while (buf[i])
 	{
-		if (line[0][i] == '\n' || line[0][i] == '\0')
+		if (buf[i] == '\n' || buf[i] == '\0')
 			return (i);
 		i++;
 	}
@@ -63,7 +64,7 @@ int 	gnl_cut_until_nline(char *buf, int newline, char **line)
 // Returns a joined string.
 // First put line in newstr, then free line.
 // Then put buf in line.
-char	*gnl_strjoin(char *buf, char **line)
+char	*gnl_strjoin(char *buf, char **line, int newline)
 {
 	int		i;
 	int		j;
@@ -73,17 +74,17 @@ char	*gnl_strjoin(char *buf, char **line)
 
 	i = 0;
 	j = 0;
-	len1 = gnl_strlen(buf);
+	len1 = gnl_strlen(buf) - newline;
 	len2 = gnl_strlen(line[0]);
 	newstr = malloc((len1 + len2 + 1) * sizeof(char));
 	if (!newstr)
 		return (NULL);
-	while (line[0][i] != '\0')
+	while (i < len2)
 	{
 		newstr[i] = line[0][i];
 		i++;
 	}
-	while (buf[j] != '\0')
+	while (j < len1)
 	{
 		newstr[i] = buf[j];
 		i++;
