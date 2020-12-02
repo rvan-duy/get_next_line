@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/02 19:14:42 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/02 19:55:05 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ char	*gnl_strjoin(char *buf, char **line, int newline)
 
 	i = 0;
 	j = 0;
-	len1 = gnl_strlen(buf) - newline;
+	len1 = newline;
 	len2 = gnl_strlen(line[0]);
+	if (len1 == 0)
+		len1 = gnl_strlen(buf);
 	newstr = malloc((len1 + len2 + 1) * sizeof(char));
 	if (!newstr)
 		return (NULL);
