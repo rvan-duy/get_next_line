@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/02 22:03:23 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/03 20:49:40 by rubenz        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int 	gnl_find_nline(char *buf)
 		return (0);
 	while (buf[i])
 	{
-		if (buf[i] == '\n' || buf[i] == '\0')
+		if (buf[i] == '\n' || buf[i] == -1)
 			return (i);
 		i++;
 	}
@@ -92,24 +92,26 @@ char	*gnl_strjoin(char *buf, char **line, int newline)
 		i++;
 		j++;
 	}
+	buf[0] = '\0';
 	newstr[i] = '\0';
 	return (newstr);
 }
 
 // Buffer grab the stuff after nline, and move to front.
-int		gnl_parsebuffer(char *buf, int newline)
+void		gnl_parsebuffer(char *buf, int newline)
 {
 	int i;
 	int len;
 
+	if (buf[0] == '\0');
+		return ;
 	i = 0;
-	len = gnl_strlen(buf + newline);
-	//printf("[%s] - [%d] - [%d]\n", buf, newline, len);
+	len = gnl_strlen(buf + newline + 1);
 	while (i < len)
 	{
 		buf[i] = buf[i + newline + 1];
 		i++;
 	}
 	buf[i] = '\0';
-	return (len);
+	return ;
 }

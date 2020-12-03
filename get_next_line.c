@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/02 22:05:01 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/03 20:50:44 by rubenz        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,39 @@
 int get_next_line(int fd, char **line)
 {
     static char buf[BUFFER_SIZE + 1];
-    // dont forget to put last element on \0 after read
     int ret;
     int newline;
-    int end;
     int strlen;
 
-    strlen = 0;
-    end = 0;
+    int i = 0;
+
     newline = 0;
     while (newline == 0)
     {
-        ret = read(fd, buf + strlen, BUFFER_SIZE - strlen);
-        buf[ret + 1] = '\0';
-        if (ret > 0)
+	strlen = gnl_strlen(buf);	
+	printf("%d before read - [%s] [%d]\n", i, buf, strlen);
+	ret = read(fd, buf + strlen, BUFFER_SIZE - strlen);
+	printf("%d after read - [%s] [%d]\n", i, buf + strlen, strlen);
+	printf("%d after read (buf) - [%s] [%d]\n", i, buf, gnl_strlen(buf));
+	buf[ret + 1] = '\0';
+        if (ret >= 0)
         {
             newline = gnl_find_nline(buf);
-            // This needs error handeling but i have no idea how
-            line[0] = gnl_strjoin(buf, line, newline);
-            if (buf[newline + 1] != '\0')
-                strlen = gnl_parsebuffer(buf, newline);
-        }
-        if (ret == -1)
+	    printf("%d after newline - [%d]\n", i, newline);
+	    if (newline == 0 && ret == 0)
+	    {
+		line[0] = gnl_strjoin(buf, line, gnl_strlen(line[0]));
+	    	return (0);
+	    }
+	    // This needs error handeling but i have no idea how
+            printf("%d before strjoin - [%s] [%s] [%d]\n", i, buf, line[0], newline);
+	    line[0] = gnl_strjoin(buf, line, newline);
+            gnl_parsebuffer(buf, newline);
+	    printf("%d after strjoin - [%s] [%s]\n", i, line[0], buf);
+	}
+        else
             return (-1);
-        if (end == 1)
-            return (0);
+	i++;
     }
-    ///printf("buf: [%s]\n", buf);
     return ret;
 }
