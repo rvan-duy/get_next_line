@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/03 20:50:44 by rubenz        ########   odam.nl         */
+/*   Updated: 2020/12/04 00:04:02 by rubenz        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,24 @@ int get_next_line(int fd, char **line)
     newline = 0;
     while (newline == 0)
     {
+	if (buf[0])
+	{
+		newline = gnl_find_nline(buf);
+		line[0] = gnl_strjoin(buf, line, newline);		
+	}
+
+
+
+
+
+
 	strlen = gnl_strlen(buf);	
 	printf("%d before read - [%s] [%d]\n", i, buf, strlen);
 	ret = read(fd, buf + strlen, BUFFER_SIZE - strlen);
 	printf("%d after read - [%s] [%d]\n", i, buf + strlen, strlen);
 	printf("%d after read (buf) - [%s] [%d]\n", i, buf, gnl_strlen(buf));
-	buf[ret + 1] = '\0';
-        if (ret >= 0)
+	buf[ret + strlen + 1] = '\0';
+        if (ret > 0)
         {
             newline = gnl_find_nline(buf);
 	    printf("%d after newline - [%d]\n", i, newline);
@@ -46,8 +57,10 @@ int get_next_line(int fd, char **line)
             gnl_parsebuffer(buf, newline);
 	    printf("%d after strjoin - [%s] [%s]\n", i, line[0], buf);
 	}
+	else if (ret == 0)
+		return (0);
         else
-            return (-1);
+            	return (-1);
 	i++;
     }
     return ret;
