@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/03 23:26:28 by rubenz        ########   odam.nl         */
+/*   Updated: 2020/12/05 22:15:38 by rubenz        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,6 @@ int 	gnl_find_nline(char *buf)
 		i++;
 	}
 	return (0);
-}
-
-// Cut buf until newline, put result in line.
-// Return 1 if succesfull.
-// Return 0 if fails.
-int 	gnl_cut_until_nline(char *buf, int newline, char **line)
-{
-	int i;
-
-	line[0] = malloc((newline + 1) * sizeof(char));
-	if (!line[0])
-		return (0);
-	i = 0;
-	while (buf[i] != '\0' && buf[i] != '\n')
-	{
-		line[0][i] = buf[i];
-		i++;
-	}
-	line[0][i] = '\0';
-	return (1);
 }
 
 // Returns a joined string.

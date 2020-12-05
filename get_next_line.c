@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/05 21:57:56 by rubenz        ########   odam.nl         */
+/*   Updated: 2020/12/05 22:08:03 by rubenz        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int get_next_line(int fd, char **line)
     int ret;
     int newline;
     int strlen;
-
-    int i = 0;
 
     strlen = 0;
     newline = 0;
@@ -59,19 +57,6 @@ int get_next_line(int fd, char **line)
 	printf("joined buf with line, line: %s\n", line[0]);
 	gnl_parsebuffer(buf, newline);
 	printf("parsed buffer, buf: %s\n", buf);
-        /*if (ret > 0)
-        {
-            newline = gnl_find_nline(buf);
-	    if (newline == 0 && ret == 0)
-	    {
-		line[0] = gnl_strjoin(buf, line, gnl_strlen(line[0]));
-	    	return (0);
-	    }
-	    // This needs error handeling but i have no idea how
-	    line[0] = gnl_strjoin(buf, line, newline);
-            gnl_parsebuffer(buf, newline);
-	}
-	i++;*/
     }
     return (1);
 }
