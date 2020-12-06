@@ -1,123 +1,101 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line_utils_old.c                          :+:    :+:            */
+/*   get_next_line_utils.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/20 19:22:54 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/02 15:27:45 by rvan-duy      ########   odam.nl         */
+/*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
+/*   Updated: 2020/12/05 22:15:38 by rubenz        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_old.h"
+#include "get_next_line.h"
 #include <stdio.h>
 
-size_t	gnl_strlen(const char *s)
+int		gnl_strlen(const char *s)
 {
-	int count;
-
-	count = 0;
-	while (s[count] != '\0')
-		count++;
-	return (count);
-}
-
-void	*gnl_memset(void *s, int c, size_t n)
-{
-	size_t i;
+	int i;
 
 	i = 0;
-	while (i < n)
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+// Returns position of newline or EOF.
+// 0 if no newline of EOF is found.
+int 	gnl_find_nline(char *buf)
+{
+	int i;
+
+	i = 0;
+	if (!buf)
+		return (0);
+	while (buf[i])
 	{
-		((unsigned char*)s)[i] = (unsigned char)c;
+		if (buf[i] == '\n' || buf[i] == -1)
+			return (i);
 		i++;
 	}
-	return (s);
+	return (0);
 }
 
-void    gnl_bzero(void *s, size_t n)
+// Returns a joined string.
+// First put line in newstr, then free line.
+// Then put buf in line.
+char	*gnl_strjoin(char *buf, char **line, int newline)
 {
-	gnl_memset(s, 0, n);
-}
-
-void	*gnl_calloc(size_t count, size_t size)
-{
-	void	*str;
-
-	str = malloc(size * count);
-	if (!str)
-		return (NULL);
-	gnl_bzero(str, (size * count));
-	return (str);
-}
-
-char    *gnl_strdup(const char *s1)
-{
-	char	*str;
 	int		i;
-
-	i = 0;
-	str = gnl_calloc(gnl_strlen(s1) + 1, sizeof(char));
-	if (!str)
-		return (NULL);
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	return (str);
-}
-
-void	*gnl_memcpy(void *dst, const void *src, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	if (!dst && !src)
-		return (NULL);
-	while (i < n)
-	{
-		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		i++;
-	}
-	return (dst);
-}
-
-void	gnl_strmove(char *dst, char *src, int n)
-{
-	int len;
-	
-	len = n;
-	while (len > 0)
-	{
-		dst[len - 1] = src[len - 1];
-		len--;
-	}
-	dst[n] = '\0';
-	return ;
-}
-
-size_t	gnl_strlcpy(char *dst, const char *src, size_t n)
-{
-	size_t	i;
-	size_t	j;
+	int		j;
+	int 	len1;
+	int		len2;
+	char	*newstr;
 
 	i = 0;
 	j = 0;
-	if (!dst || !src)
-		return (0);
-	while (src[j] != '\0')
+	len1 = newline;
+	len2 = gnl_strlen(line[0]);
+	if (len1 == 0)
+		len1 = gnl_strlen(buf);
+	newstr = malloc((len1 + len2 + 1) * sizeof(char));
+	if (!newstr)
+		return (NULL);
+	while (i < len2)
 	{
-		if (i < n - 1 && n > 0)
-		{
-			dst[i] = src[i];
-			i++;
-		}
+		newstr[i] = line[0][i];
+		i++;
+	}
+	while (j < len1)
+	{
+		newstr[i] = buf[j];
+		i++;
 		j++;
 	}
-	if (!n)
-		return (j);
-	dst[i] = '\0';
-	return (j);
+	newstr[i] = '\0';
+	return (newstr);
+}
+
+// Buffer grab the stuff after nline, and move to front.
+void		gnl_parsebuffer(char *buf, int newline)
+{
+	int i;
+	int len;
+	int len2;
+	if (newline == 0)
+		return ;
+	i = 0;
+	len = gnl_strlen(buf + newline + 1);
+	len2 = gnl_strlen(buf);
+	while (i < len)
+	{
+		buf[i] = buf[i + newline + 1];
+		i++;
+	}
+	while (i < len2)
+	{
+		buf[i] = '\0';
+		i++;
+	}
+	return ;
 }

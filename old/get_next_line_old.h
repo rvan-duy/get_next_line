@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/20 19:40:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/01 22:09:07 by rvan-duy      ########   odam.nl         */
+/*   Created: 2020/12/02 14:29:32 by rvan-duy      #+#    #+#                 */
+/*   Updated: 2020/12/03 23:26:53 by rubenz        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,15 @@
 #ifndef BUFFER_SIZE
     # define BUFFER_SIZE 128
 #endif
-# include <unistd.h>
-# include <stddef.h>
-# include <stdlib.h>
 
-int         get_next_line(int fd, char **Line);
-size_t      gnl_strlen(const char *s);
-void        *gnl_memset(void *s, int c, size_t n);
-void        gnl_bzero(void *s, size_t n);
-char        *gnl_strdup(const char *s1);
-void        *gnl_calloc(size_t count, size_t size);
-void	    *gnl_memcpy(void *dst, const void *src, size_t n);
-void        gnl_strmove(char *dst, char *src, int n);
-size_t      gnl_strlcpy(char *dst, const char *src, size_t n);
+#include <unistd.h>
+#include <stdlib.h>
+
+int     gnl_strlen(const char *s);
+int     get_next_line(int fd, char **line);
+int     gnl_find_nline(char *buf);
+int     gnl_cut_until_nline(char *buf, int newline, char **line);
+char    *gnl_strjoin(char *buf, char **line, int newline);
+void	gnl_parsebuffer(char *buf, int newline);
 
 #endif

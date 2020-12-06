@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/05 22:15:38 by rubenz        ########   odam.nl         */
+/*   Updated: 2020/12/06 12:18:50 by rubenz        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	*gnl_strjoin(char *buf, char **line, int newline)
 		i++;
 		j++;
 	}
+	//free(buf);
 	newstr[i] = '\0';
 	return (newstr);
 }
