@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/06 12:18:50 by rubenz        ########   odam.nl         */
+/*   Updated: 2020/12/06 17:31:09 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,20 @@ int		gnl_strlen(const char *s)
 	return (i);
 }
 
-// Returns position of newline or EOF.
-// 0 if no newline of EOF is found.
 int 	gnl_find_nline(char *buf)
 {
 	int i;
 
 	i = 0;
-	if (!buf)
-		return (0);
 	while (buf[i])
 	{
-		if (buf[i] == '\n' || buf[i] == -1)
+		if (buf[i] == '\n')
 			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
-// Returns a joined string.
-// First put line in newstr, then free line.
-// Then put buf in line.
 char	*gnl_strjoin(char *buf, char **line, int newline)
 {
 	int		i;
@@ -72,31 +65,43 @@ char	*gnl_strjoin(char *buf, char **line, int newline)
 		i++;
 		j++;
 	}
-	//free(buf);
 	newstr[i] = '\0';
 	return (newstr);
 }
 
-// Buffer grab the stuff after nline, and move to front.
+// might not have to do +1 since newline is gonna be the null terminator
 void		gnl_parsebuffer(char *buf, int newline)
 {
 	int i;
 	int len;
-	int len2;
-	if (newline == 0)
-		return ;
+
 	i = 0;
 	len = gnl_strlen(buf + newline + 1);
-	len2 = gnl_strlen(buf);
 	while (i < len)
 	{
 		buf[i] = buf[i + newline + 1];
 		i++;
 	}
-	while (i < len2)
+	buf[i] = '\0';
+	return ;
+}
+
+// what if newline is 0, then entire buf needs to be put in line!
+// newline is weird
+char		*gnl_make_line(char *buf, int newline)
+{
+	char *line;
+	int i;
+
+	i = 0;
+	line = malloc((newline + 1) * sizeof(char));
+	if (!line)
+		return (NULL);
+	while (i < newline)
 	{
-		buf[i] = '\0';
+		line[i] = buf[i];
 		i++;
 	}
-	return ;
+	line[i] = '\0';
+	return (line);
 }
