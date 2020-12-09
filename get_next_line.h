@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:29:32 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/06 13:58:40 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/09 14:53:35 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int     gnl_strlen(const char *s);
+int     gnl_len(char *buf);
 int     get_next_line(int fd, char **line);
-int     gnl_find_nline(char *buf);
-int     gnl_cut_until_nline(char *buf, int newline, char **line);
-char    *gnl_strjoin(char *buf, char **line, int newline);
-void	gnl_parsebuffer(char *buf, int newline);
-char    *gnl_make_line(char *buf, int newline);
+char    *gnl_strjoin(char *buf, char **line, int len1, int len2);
+void	gnl_parsebuffer(char *buf, int len);
 
 #endif

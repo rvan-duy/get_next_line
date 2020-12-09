@@ -6,20 +6,58 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/08 12:36:06 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/09 15:17:54 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-int get_next_line(int fd, char **line)
+static int	gnl_make_line(char *buf, char **line)
+{
+	int len1;
+	int len2;
+
+	len1 = gnl_len(buf);
+	len2 = gnl_len(line[0]);
+	line[0] = gnl_strjoin(buf, line, len1, len2);	
+	// error checking!!!
+	if (buf[gnl_len(buf)] + 1)
+	{
+		gnl_parsebuffer(buf, len1);
+		return (1);
+	}
+	buf[0] = '\0';
+}
+
+int			get_next_line(int fd, char **line)
 {
     static char buf[BUFFER_SIZE + 1];
     int ret;
-    int newline;
 
-	newline = 0;
+	if (!line || fd < 0)
+		return (-1);
+	if (!buf[0])
+	{
+		ret = read(fd, buf, BUFFER_SIZE);
+		if (ret == 0)
+			return (0);
+		else if (ret == -1)
+			return (-1);
+		buf[ret] = '\0';
+	}
+	
+	gnl_make_line(buf, line);
+	get_next_line(fd, line);
+
+
+
+
+
+
+
+
+	/*newline = 0;
     while (newline == 0)
     {
 		if (buf[0])
@@ -49,6 +87,6 @@ int get_next_line(int fd, char **line)
 			gnl_parsebuffer(buf, newline);
 			printf("after parsing: line: [%s] || buf: [%s]\n", line[0], buf);
 		}
-    }
-    return (1);
+    }*/
+    return (ret);
 }

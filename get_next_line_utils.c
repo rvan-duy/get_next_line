@@ -6,51 +6,31 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/08 12:40:17 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/09 14:59:35 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-int		gnl_strlen(const char *s)
+int 	gnl_len(char *buf)
 {
 	int i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (buf[i] && buf[i] != '\n')
 		i++;
 	return (i);
 }
 
-int 	gnl_find_nline(char *buf)
-{
-	int i;
-
-	i = 0;
-	while (buf[i])
-	{
-		if (buf[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
-char	*gnl_strjoin(char *buf, char **line, int newline)
+char	*gnl_strjoin(char *buf, char **line, int len1, int len2)
 {
 	int		i;
 	int		j;
-	int 	len1;
-	int		len2;
 	char	*newstr;
 
 	i = 0;
 	j = 0;
-	len1 = newline;
-	len2 = gnl_strlen(line[0]);
-	if (len1 == 0)
-		len1 = gnl_strlen(buf);
 	newstr = malloc((len1 + len2 + 1) * sizeof(char));
 	if (!newstr)
 		return (NULL);
@@ -70,19 +50,14 @@ char	*gnl_strjoin(char *buf, char **line, int newline)
 }
 
 // might not have to do +1 since newline is gonna be the null terminator
-void		gnl_parsebuffer(char *buf, int newline)
+void		gnl_parsebuffer(char *buf, int len)
 {
 	int i;
-	int len;
 
 	i = 0;
-	len = gnl_strlen(buf + newline);
-	if (newline > 0)
-		len++;
-	printf("------ [%d]\n", len);
-	while (i < len)
+	while (buf[len])
 	{
-		buf[i] = buf[i + newline + 1];
+		buf[i] = buf[i + len + 1];
 		i++;
 	}
 	buf[i] = '\0';
