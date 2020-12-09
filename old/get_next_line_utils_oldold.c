@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/08 12:40:17 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/05 22:15:38 by rubenz        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,27 @@ int		gnl_strlen(const char *s)
 	return (i);
 }
 
+// Returns position of newline or EOF.
+// 0 if no newline of EOF is found.
 int 	gnl_find_nline(char *buf)
 {
 	int i;
 
 	i = 0;
+	if (!buf)
+		return (0);
 	while (buf[i])
 	{
-		if (buf[i] == '\n')
+		if (buf[i] == '\n' || buf[i] == -1)
 			return (i);
 		i++;
 	}
 	return (0);
 }
 
+// Returns a joined string.
+// First put line in newstr, then free line.
+// Then put buf in line.
 char	*gnl_strjoin(char *buf, char **line, int newline)
 {
 	int		i;
@@ -69,22 +76,26 @@ char	*gnl_strjoin(char *buf, char **line, int newline)
 	return (newstr);
 }
 
-// might not have to do +1 since newline is gonna be the null terminator
+// Buffer grab the stuff after nline, and move to front.
 void		gnl_parsebuffer(char *buf, int newline)
 {
 	int i;
 	int len;
-
+	int len2;
+	if (newline == 0)
+		return ;
 	i = 0;
-	len = gnl_strlen(buf + newline);
-	if (newline > 0)
-		len++;
-	printf("------ [%d]\n", len);
+	len = gnl_strlen(buf + newline + 1);
+	len2 = gnl_strlen(buf);
 	while (i < len)
 	{
 		buf[i] = buf[i + newline + 1];
 		i++;
 	}
-	buf[i] = '\0';
+	while (i < len2)
+	{
+		buf[i] = '\0';
+		i++;
+	}
 	return ;
 }

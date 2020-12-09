@@ -6,13 +6,14 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/05 22:08:03 by rubenz        ########   odam.nl         */
+/*   Updated: 2020/12/06 17:31:57 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
+// doesn't work with only \n\n\n\n\n
 int get_next_line(int fd, char **line)
 {
     static char buf[BUFFER_SIZE + 1];
@@ -20,43 +21,36 @@ int get_next_line(int fd, char **line)
     int newline;
     int strlen;
 
+	newline = -1;
     strlen = 0;
-    newline = 0;
-    while (newline == 0)
+    while (newline < 0)
     {
-	if (buf[0])
-	{
-		printf("buffer exists already!\n");
-		newline = gnl_find_nline(buf);
-		printf("newline in buf: %d\n", newline);
-		line[0] = gnl_strjoin(buf, line, newline);
-		printf("joined buf with line, line: %s\n", line[0]);
-		gnl_parsebuffer(buf, newline);			
-		printf("parsed buffer, buf: %s\n", buf);
-		strlen = gnl_strlen(buf);
-		printf("len of buf: %d\n", strlen);
-		newline = gnl_find_nline(buf);
-		if (newline != 0)
+		printf("buf is now: %s\n", buf);
+		if (buf[0])
 		{
-			printf("found newline in old buf! no need to read\n");
-			break ;
+			newline = gnl_find_nline(buf);
+			line[0] = gnl_strjoin(buf, line, newline);
+			if (line[0] == NULL)
+				return (-1);
+			gnl_parsebuffer(buf, newline);
+			strlen = gnl_strlen(buf);
+			newline = gnl_find_nline(buf);
+			if (newline != 0)
+				break ;
 		}
-	}
-	printf("now starting normal reading proces\n");
-	ret = read(fd, buf + strlen, BUFFER_SIZE - strlen);
-	printf("read returned: %d\n", ret);
-	if (ret == 0)
-		return (0);
-	if (ret == -1)
-		return (-1);
-	buf[ret + strlen + 1] = '\0';
-	printf("read buffer: %s\n", buf);
-	newline = gnl_find_nline(buf);
-	printf("newline in buffer: %d\n", newline);
-	line[0]= gnl_strjoin(buf, line, newline);
-	printf("joined buf with line, line: %s\n", line[0]);
-	gnl_parsebuffer(buf, newline);
-	printf("parsed buffer, buf: %s\n", buf);
+		ret = read(fd, buf + strlen, BUFFER_SIZE - strlen);
+		//printf("ret: %d - buf: %s\n", ret, buf);
+		if (ret == 0)
+			return (0);
+		if (ret == -1)
+			return (-1);
+		buf[ret + strlen + 1] = '\0';
+		newline = gnl_find_nline(buf);
+		//printf("newline: %d\n", newline);
+		line[0] = gnl_make_line(buf, newline);
+		if (line[0] == NULL)
+			return (-1);
+		gnl_parsebuffer(buf, newline);
     }
     return (1);
 }
