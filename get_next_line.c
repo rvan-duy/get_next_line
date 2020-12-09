@@ -6,18 +6,27 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/09 15:17:54 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/09 15:30:27 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-static int	gnl_make_line(char *buf, char **line)
+static int	gnl_make_line(char *buf, char **line, int fd, int ret)
 {
 	int len1;
 	int len2;
 
+	if (!buf[0])
+	{
+		ret = read(fd, buf, BUFFER_SIZE);
+		if (ret == 0)
+			return (0);
+		else if (ret == -1)
+			return (-1);
+		buf[ret] = '\0';
+	}
 	len1 = gnl_len(buf);
 	len2 = gnl_len(line[0]);
 	line[0] = gnl_strjoin(buf, line, len1, len2);	
@@ -28,6 +37,7 @@ static int	gnl_make_line(char *buf, char **line)
 		return (1);
 	}
 	buf[0] = '\0';
+	gnl_make_line(buf, line, fd, ret);
 }
 
 int			get_next_line(int fd, char **line)
@@ -37,18 +47,9 @@ int			get_next_line(int fd, char **line)
 
 	if (!line || fd < 0)
 		return (-1);
-	if (!buf[0])
-	{
-		ret = read(fd, buf, BUFFER_SIZE);
-		if (ret == 0)
-			return (0);
-		else if (ret == -1)
-			return (-1);
-		buf[ret] = '\0';
-	}
-	
-	gnl_make_line(buf, line);
-	get_next_line(fd, line);
+	ret = gnl_make_line(buf, line, fd, ret);
+	if (ret == -1)
+		return (-1);
 
 
 
