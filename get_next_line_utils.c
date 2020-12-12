@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/12 11:57:37 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/12 19:57:51 by rubenz        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,18 @@ char	*gnl_strjoin(char *buf, char **line, int len1, int len2)
 }
 
 // might not have to do +1 since newline is gonna be the null terminator
-void	gnl_parsebuffer(char *buf, int len)
+char	*gnl_parsebuffer(char *buf, int len)
 {
 	int i;
+	char *ptr;
 
 	i = 0;
-	while (buf[len])
+	ptr = malloc(sizeof(char) * len + 1);
+	while (i < len)
 	{
-		buf[i] = buf[i + len + 1];
+		ptr[i] = buf[i + len];
 		i++;
 	}
-	buf[i] = '\0';
-	return ;
+	ptr[i] = '\0';
+	return (ptr);
 }

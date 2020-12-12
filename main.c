@@ -20,13 +20,13 @@ int main()
     }
 
     int ret;
-    //ret = get_next_line(fd, &buf);
-    //printf("main - line: [%s]\n", buf);
-    //ret = get_next_line(fd, &buf);
-    //printf("main - line: [%s]\n", buf);
-    while ((ret = get_next_line(fd, &buf) > 0))
-      printf("main - [%d] - [%s]\n", ret, buf);
-    printf("main - [%d] - [%s]\n", ret, buf);
+    ret = get_next_line(fd, &buf);
+    printf("main - line: [%s]\n", buf);
+    ret = get_next_line(fd, &buf);
+    printf("main - line: [%s]\n", buf);
+    //while ((ret = get_next_line(fd, &buf) > 0))
+      //printf("main - [%d] - [%s]\n", ret, buf);
+    //printf("main - [%d] - [%s]\n", ret, buf);
     //printf("[%d] - [%s]\n", ret, buf);
     //get_next_line(fd, &buf);
     //while (1) {};
