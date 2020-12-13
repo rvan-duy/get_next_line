@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line_.c                                   :+:    :+:            */
+/*   get_next_line.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/13 15:14:57 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/13 17:33:17 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	gnl_make_line(char *buf, char **line, char *temp, int fd, int ret)
 	printf("checking for len %d, [%c]\n", len, temp[len]);
 	if (temp[len] == '\n')
 	{
-		line[0] == gnl_strjoin()
+		line[0] == gnl_strjoin();
 	}
 	
 
