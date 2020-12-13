@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line_utils.c                              :+:    :+:            */
+/*   get_next_line_utils_oldoldold.c                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/13 15:14:05 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/13 14:43:12 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-int 	gnl_len(char *str)
+int 	gnl_len(char *buf)
 {
 	int i;
 
 	i = 0;
-	while (str[i] && str[i] != '\n')
+	while (buf[i] && buf[i] != '\n')
 		i++;
 	return (i);
 }
