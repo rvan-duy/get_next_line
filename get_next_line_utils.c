@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/13 15:14:05 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/15 13:18:56 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int 	gnl_len(char *str)
 	return (i);
 }
 
-char	*gnl_strjoin(char *buf, char **line, int len1, int len2)
+char	*gnl_strjoin(char *buf, char **line, int len)
 {
 	int		i;
 	int		j;
@@ -31,39 +31,36 @@ char	*gnl_strjoin(char *buf, char **line, int len1, int len2)
 
 	i = 0;
 	j = 0;
-	newstr = malloc((len1 + len2 + 1) * sizeof(char));
+	newstr = malloc((len + gnl_len(line[0]) + 1) * sizeof(char));
 	if (!newstr)
 		return (NULL);
-	while (i < len2)
+	while (line[0][i])
 	{
 		newstr[i] = line[0][i];
 		i++;
 	}
-	while (j < len1)
+	while (buf[j] && buf[j] != '\n')
 	{
 		newstr[i] = buf[j];
 		i++;
 		j++;
 	}
 	newstr[i] = '\0';
+	free(line[0]);
 	return (newstr);
 }
 
-// might not have to do +1 since newline is gonna be the null terminator
-char	*gnl_parsebuffer(char *str, int len)
+void	gnl_parsebuffer(char *str, int len)
 {
 	int i;
-	char *newstr;
 
 	i = 0;
-	newstr = malloc(sizeof(char) * len + 1);
-	if (!newstr)
-		return (NULL);
-	while (str[i + len + 1] != '\0')
+	len += 1;
+	while (str[len])
 	{
-		newstr[i] = str[i + len + 1];
+		str[i] = str[len];
 		i++;
+		len++;
 	}
-	newstr[i] = '\0';
-	return (newstr);
+	str[i] = '\0';
 }

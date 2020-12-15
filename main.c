@@ -21,9 +21,11 @@ int main()
 
     int ret;
     //ret = get_next_line(fd, &buf);
-    //printf("main - line: [%s]\n", buf);
+    //printf("[%d] main - line: [%s]\n", ret, buf);
     //ret = get_next_line(fd, &buf);
-    //printf("main - line: [%s]\n", buf);
+    //printf("[%d] main - line: [%s]\n", ret, buf);
+    //ret = get_next_line(fd, &buf);
+    //printf("[%d] main - line: [%s]\n", ret, buf);
     while ((ret = get_next_line(fd, &buf) > 0))
       printf("main - [%d] - [%s]\n", ret, buf);
     printf("main - [%d] - [%s]\n", ret, buf);

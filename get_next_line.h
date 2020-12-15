@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:29:32 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/13 14:48:54 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/15 13:17:36 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@
 
 int     gnl_len(char *buf);
 int     get_next_line(int fd, char **line);
-char    *gnl_strjoin(char *buf, char **line, int len1, int len2);
-char	*gnl_parsebuffer(char *str, int len);
-//int     gnl_checknewline(char *str);
+char    *gnl_strjoin(char *buf, char **line, int len);
+void    gnl_parsebuffer(char *str, int len);
 
 #endif
