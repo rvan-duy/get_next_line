@@ -6,11 +6,12 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/15 16:07:59 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/15 16:17:00 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 static int	gnl_make_line(char *buf, char **line, int fd, int ret)
 {
@@ -20,8 +21,7 @@ static int	gnl_make_line(char *buf, char **line, int fd, int ret)
 	foundnewline = 0;
 	if (!buf[0])
 	{
-		//ret = read(fd, buf, BUFFER_SIZE);
-		ret = -1;
+		ret = read(fd, buf, BUFFER_SIZE);
 		if (ret == 0 || ret == -1) // free
 			return (ret);
 		buf[ret] = '\0';
@@ -41,7 +41,7 @@ int			get_next_line(int fd, char **line)
 	static char buf[BUFFER_SIZE + 1];
 	int ret;
 
-	if (!line || fd < 0 || BUFFER_SIZE < 1) //als read -1 returned
+	if (!line || fd < 0 || BUFFER_SIZE < 1)
 		return (-1);
 	line[0] = malloc(sizeof(char));
 	if (!line[0])
