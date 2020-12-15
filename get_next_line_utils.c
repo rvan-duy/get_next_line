@@ -6,13 +6,13 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/15 16:08:01 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/15 16:25:07 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int 	gnl_len(char *str)
+int		gnl_len(char *str)
 {
 	int i;
 
@@ -25,11 +25,9 @@ int 	gnl_len(char *str)
 char	*gnl_strjoin(char *buf, char **line, int len)
 {
 	int		i;
-	int		j;
 	char	*newstr;
 
 	i = 0;
-	j = 0;
 	newstr = malloc((len + gnl_len(line[0]) + 1) * sizeof(char));
 	if (!newstr)
 	{
@@ -41,11 +39,11 @@ char	*gnl_strjoin(char *buf, char **line, int len)
 		newstr[i] = line[0][i];
 		i++;
 	}
-	while (buf[j] && buf[j] != '\n')
+	while (buf && *buf != '\n')
 	{
-		newstr[i] = buf[j];
+		newstr[i] = *buf;
 		i++;
-		j++;
+		buf++;
 	}
 	newstr[i] = '\0';
 	free(line[0]);
