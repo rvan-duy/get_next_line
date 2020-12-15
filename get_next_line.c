@@ -6,33 +6,32 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/15 13:20:12 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/15 16:07:59 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 static int	gnl_make_line(char *buf, char **line, int fd, int ret)
 {
 	int len;
+	int foundnewline;
 
+	foundnewline = 0;
 	if (!buf[0])
 	{
-		//printf("buf does not exist!\n");
-		ret = read(fd, buf, BUFFER_SIZE);
-		if (ret == 0 || ret == -1)
+		//ret = read(fd, buf, BUFFER_SIZE);
+		ret = -1;
+		if (ret == 0 || ret == -1) // free
 			return (ret);
 		buf[ret] = '\0';
-		//printf("read BUFFER_SIZE... buf:\n[%s]\n", buf);
 	}
 	len = gnl_len(buf);
-	//printf("buf:\n[%s]\n", buf);
+	if (buf[len] == '\n')
+		foundnewline = 1;
 	line[0] = gnl_strjoin(buf, line, len);
-	//printf("line:\n[%s]\n", line[0]);
 	gnl_parsebuffer(buf, len);
-	//printf("buf:\n[%s]\n", buf);
-	if (!buf[0] || buf[len] == '\n')
+	if (foundnewline == 1)
 		return (1);
 	return (gnl_make_line(buf, line, fd, ret));
 }
@@ -42,11 +41,12 @@ int			get_next_line(int fd, char **line)
 	static char buf[BUFFER_SIZE + 1];
 	int ret;
 
-	if (!line || fd < 0)
+	if (!line || fd < 0 || BUFFER_SIZE < 1) //als read -1 returned
 		return (-1);
-	*line = malloc(sizeof(char));
-	if (!*line)
+	line[0] = malloc(sizeof(char));
+	if (!line[0])
 		return (-1);
-	ret = gnl_make_line(buf, line, fd, ret);
+	line[0][0] = '\0';
+	ret = gnl_make_line(buf, line, fd, 0);
 	return (ret);
 }
