@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.c                                    :+:    :+:            */
+/*   get_next_line_bonus.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/15 17:24:06 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/15 17:59:41 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static int	gnl_make_line(char *buf, char **line, int fd, int ret)
 {
@@ -41,7 +41,7 @@ static int	gnl_make_line(char *buf, char **line, int fd, int ret)
 
 int			get_next_line(int fd, char **line)
 {
-	static char		buf[BUFFER_SIZE + 1];
+	static char		buf[OPEN_MAX][BUFFER_SIZE + 1];
 	int				ret;
 
 	if (!line || fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
@@ -50,6 +50,6 @@ int			get_next_line(int fd, char **line)
 	if (!line[0])
 		return (-1);
 	line[0][0] = '\0';
-	ret = gnl_make_line(buf, line, fd, 0);
+	ret = gnl_make_line(buf[fd], line, fd, 0);
 	return (ret);
 }

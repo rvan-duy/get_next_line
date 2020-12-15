@@ -6,11 +6,11 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/28 18:17:41 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/11/28 18:21:00 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/15 17:15:58 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../get_next_line.h"
 #include <stdio.h>
 #include <fcntl.h>
 
