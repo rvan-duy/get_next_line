@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/15 16:18:45 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/15 17:06:25 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ static int	gnl_make_line(char *buf, char **line, int fd, int ret)
 	if (!buf[0])
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
-		if (ret == 0 || ret == -1) // free
+		if (ret == -1)
+			free(line[0]);
+		if (ret == 0 || ret == -1)
 			return (ret);
 		buf[ret] = '\0';
 	}
@@ -30,6 +32,8 @@ static int	gnl_make_line(char *buf, char **line, int fd, int ret)
 	if (buf[len] == '\n')
 		foundnewline = 1;
 	line[0] = gnl_strjoin(buf, line, len);
+	if (line[0] == NULL)
+		return (-1);
 	gnl_parsebuffer(buf, len);
 	if (foundnewline == 1)
 		return (1);

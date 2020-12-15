@@ -6,11 +6,12 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/15 16:25:07 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/15 16:47:45 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int		gnl_len(char *str)
 {
@@ -39,7 +40,7 @@ char	*gnl_strjoin(char *buf, char **line, int len)
 		newstr[i] = line[0][i];
 		i++;
 	}
-	while (buf && *buf != '\n')
+	while (*buf && *buf != '\n')
 	{
 		newstr[i] = *buf;
 		i++;

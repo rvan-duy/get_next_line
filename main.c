@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int main()
+void main_helper()
 {
     int fd;
     char *buf;
@@ -20,18 +20,33 @@ int main()
     }
 
     int ret;
+    ret = get_next_line(fd, &buf);
+    printf("[%d] main - line: [%s]\n", ret, buf);
+    free(buf);
+    ret = get_next_line(fd, &buf);
+    printf("[%d] main - line: [%s]\n", ret, buf);
+    free(buf);
     //ret = get_next_line(fd, &buf);
     //printf("[%d] main - line: [%s]\n", ret, buf);
-    //ret = get_next_line(fd, &buf);
-    //printf("[%d] main - line: [%s]\n", ret, buf);
-    //ret = get_next_line(fd, &buf);
-    //printf("[%d] main - line: [%s]\n", ret, buf);
-    while ((ret = get_next_line(fd, &buf) > 0))
-      printf("main - [%d] - [%s]\n", ret, buf);
-    printf("main - [%d] - [%s]\n", ret, buf);
+    //while ((ret = get_next_line(fd, &buf) > 0))
+    //{
+      //printf("main 2 - [%d] - [%s]\n", ret, buf);
+      //free(buf);
+    //}
+    //printf("main 3 - [%d] - [%s]\n", ret, buf);
+    //free(buf);
     //printf("[%d] - [%s]\n", ret, buf);
     //get_next_line(fd, &buf);
-    //while (1) {};
+    while (1) {};
 
-    return 0;
+    return ;
+}
+
+int main()
+{
+  main_helper();
+
+
+
+  return 0;
 }
