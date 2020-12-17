@@ -10,7 +10,11 @@
 void main_helper()
 {
     int fd;
+    int fd2;
     char *buf;
+    char *buf2;
+    int ret;
+    int ret2;
 
     fd = open("test.txt", O_RDONLY);
     if (fd == -1)
@@ -19,25 +23,33 @@ void main_helper()
         exit(1);
     }
 
-    int ret;
-    ret = get_next_line(fd, &buf);
-    printf("[%d] main - line: [%s]\n", ret, buf);
-    free(buf);
-    ret = get_next_line(fd, &buf);
-    printf("[%d] main - line: [%s]\n", ret, buf);
+    fd2 = open("get_next_line_bonus.h", O_RDONLY);
+    if (fd == -1)
+    {
+        printf("Failed to open and read the file.\n");
+        exit(1);
+    }
+
+
+    ret = get_next_line(0, &buf);
+    printf("[%d] [%d] [%s]\n", fd, ret, buf);
     free(buf);
     //ret = get_next_line(fd, &buf);
     //printf("[%d] main - line: [%s]\n", ret, buf);
-    //while ((ret = get_next_line(fd, &buf) > 0))
+    //free(buf);
+    //ret = get_next_line(fd, &buf);
+    //printf("[%d] main - line: [%s]\n", ret, buf);
+    //while ((ret = get_next_line(fd, &buf) > 0) && (ret2 = get_next_line(fd2, &buf2) > 0))
     //{
-      //printf("main 2 - [%d] - [%s]\n", ret, buf);
+      //printf("[%d] - [%d] - [%s]\n", fd, ret, buf);
+      //printf("[%d] - [%d] - [%s]\n", fd2, ret2, buf2);
       //free(buf);
     //}
     //printf("main 3 - [%d] - [%s]\n", ret, buf);
     //free(buf);
     //printf("[%d] - [%s]\n", ret, buf);
     //get_next_line(fd, &buf);
-    while (1) {};
+    //while (1) {};
 
     return ;
 }
