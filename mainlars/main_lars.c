@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/28 18:17:41 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/15 17:15:58 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/17 21:32:40 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int main(int argc, char **argv)
 			break ;
 	}
 	free(line);
-	while (1)
-	{}
+	//while (1){}
 	return (0);
 }

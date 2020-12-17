@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:29:32 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/15 17:31:14 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/17 21:35:50 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@
 # include <stdlib.h>
 # include <limits.h>
 
-int		gnl_len(char *buf);
+int		gnl_len(char *buf, char c);
 int		get_next_line(int fd, char **line);
-char	*gnl_strjoin(char *buf, char **line, int len);
-void	gnl_parsebuffer(char *str, int len);
+char	*gnl_strjoin(char *s1, char *s2, int ret, int len);
+char	*gnl_strchr(char *s, int c);
+char	*gnl_strndup(char *s1, char c);
+int		gnl_free(int ret, char *s1, char *s2);
 
 #endif
