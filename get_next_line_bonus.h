@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:29:32 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/23 10:30:07 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/23 11:53:50 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <limits.h>
 
 int		gnl_len(char *buf, char c);
 int		get_next_line(int fd, char **line);
