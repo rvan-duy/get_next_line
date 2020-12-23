@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:31:09 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/17 22:31:17 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/23 10:29:00 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		gnl_len(char *str, char c)
 	return (i);
 }
 
-char	*gnl_strjoin(char *s1, char *s2, int ret, int len)
+char	*gnl_strjoin(char *s1, char *s2, int len1, int len2)
 {
 	int		i;
 	int		j;
@@ -30,8 +30,9 @@ char	*gnl_strjoin(char *s1, char *s2, int ret, int len)
 
 	i = 0;
 	j = 0;
-	len = gnl_len(s1, '\0');
-	newstr = malloc((ret + len + 1) * sizeof(char));
+	len1 = gnl_len(s1, '\0');
+	len2 = gnl_len(s2, '\0');
+	newstr = malloc((len1 + len2 + 1) * sizeof(char));
 	if (!newstr)
 		return (NULL);
 	while (s1[i])

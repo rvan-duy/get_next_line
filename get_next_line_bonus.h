@@ -6,12 +6,16 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:29:32 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/17 21:35:50 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2020/12/23 10:30:07 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
+
+# ifndef MAX_FD
+#  define MAX_FD 1000
+# endif
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 128
