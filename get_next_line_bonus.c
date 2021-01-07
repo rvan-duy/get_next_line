@@ -6,7 +6,7 @@
 /*   By: rvan-duy <rvan-duy@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/02 14:26:58 by rvan-duy      #+#    #+#                 */
-/*   Updated: 2020/12/23 10:42:51 by rvan-duy      ########   odam.nl         */
+/*   Updated: 2021/01/07 11:43:13 by rvan-duy      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char	*gnl_make_line(char **fds, int fd)
 
 int			get_next_line(int fd, char **line)
 {
-	static char		*fds[MAX_FD];
+	static char		*fds[OPEN_MAX];
 	int				ret;
 
 	if (!line || fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
